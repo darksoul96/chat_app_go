@@ -4,38 +4,24 @@
 package main
 
 import (
-	// "github.com/gorilla/websocket"
+	"github.com/gorilla/websocket"
 	// "log"
 	"net/http"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	// conn, err := upgrader.Upgrade(w, r, nil)
-	// if err != nil {
-	// 	log.Printf("Upgrade error: %v", err)
-	// 	return
-	// }
+var upgrader = websocket.Upgrader{
+	CheckOrigin: func(r *http.Request) bool {
+		return true
+	},
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
+}
 
-	// defer conn.Close()
-	// for {
-	// 	mt, message, err := conn.ReadMessage()
-	// 	if err != nil {
-	// 		log.Printf("Read error: %v", err)
-	// 		return
-	// 	}
-	// 	log.Printf("Received: %s", message)
-	// 	err = conn.WriteMessage(mt, message)
-	// 	if err != nil {
-	// 		log.Printf("Write error: %v", err)
-	// 		return
-	// 	}
-	// }
+func handler(w http.ResponseWriter, r *http.Request) {
+	connection, _ := upgrader.Upgrade(w, r, nil)
+	connection.Close()
 }
 
 func main() {
-	// var upgrader = websocket.Upgrader{
-	// 	ReadBufferSize:  1024,
-	// 	WriteBufferSize: 1024,
-	// }
 
 }
