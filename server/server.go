@@ -1,12 +1,9 @@
-//package in go.mod is called chat.com
-// should I add package server or chat.com/server?
-
-package main
+package server
 
 import (
-	"github.com/gorilla/websocket"
-	// "log"
 	"net/http"
+
+	"github.com/gorilla/websocket"
 )
 
 var upgrader = websocket.Upgrader{
@@ -19,9 +16,6 @@ var upgrader = websocket.Upgrader{
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	connection, _ := upgrader.Upgrade(w, r, nil)
+
 	connection.Close()
-}
-
-func main() {
-
 }
